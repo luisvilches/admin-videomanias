@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ButtonGroup, Table,Button } from 'reactstrap';
+import {ButtonGroup, Table,Button,Form  } from 'reactstrap';
 import {Link} from 'react-router'
 
 var dev = 'http://localhost:4000'
@@ -12,6 +12,7 @@ class Familia extends Component {
     this.state = {
       api: dev,
       modal:false,
+      newCat: false,
       category: []
     }
   }
@@ -23,7 +24,6 @@ class Familia extends Component {
       this.setState({
         category: response.data
       })
-      console.log(this.state.category)
     })
   }
 
@@ -31,10 +31,7 @@ class Familia extends Component {
     var r = confirm("¿Deseas eliminar esta categoria?");
     if (r == true) {
       
-      fetch(`${this.state.api}/admin/category/${itemId}`,{
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          },
+      fetch(`${this.state.api}/category/${itemId}`,{
         method: 'delete'
       })
       .then(res => res.json())
@@ -53,11 +50,43 @@ class Familia extends Component {
       modal: !this.state.modal
     });
   }
+  newToggle(){
+    this.setState({
+      newCat: !this.state.newCat
+    });
+  }
+
+  addCat(){
+    var formData = new FormData();
+    formData.append('name', this.refs.name.value)
+    formData.append('description', this.refs.description.value)
+
+    fetch(`${this.state.api}/family`, {
+      method:'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(response => {
+      this.componentWillMount();
+      alert(response.message)
+      this.newToggle();
+    })
+    
+  }
 
   render() {
     return (
       <div className="animated fadeIn">
-        <h3>Administrador de categorias</h3>
+        <h3>Administrador de familias</h3>
+        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nueva categoria </Button>
+        <br/>
+        <Form inline>
+          <input ref="name" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Nombre categoria"/>
+          <input ref="description" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Descripción categoria"/>
+          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Crear categoria </Button>
+        </Form>
+        <br/>
+        <br/>
         <br/> 
         <Table>
             <thead>
@@ -77,8 +106,6 @@ class Familia extends Component {
                     <td>{item.description}</td>
                     <td>
                       <ButtonGroup>
-                        <Link to={`product/gallery/${item.nameUrl}`} className="btn btn-info" title="Galeria"><i className="fa fa-picture-o" aria-hidden="true"></i></Link>
-                        <Link to={`product/${item.nameUrl}`} className="btn btn-primary" title="Editar"><i className="fa fa-pencil-square-o" aria-hidden="true"></i></Link>
                         <Button color="danger" onClick={this.delete.bind(this,item._id)} title="Eliminar"><i className="fa fa-trash-o" aria-hidden="true"></i></Button>
                       </ButtonGroup>
                     </td>

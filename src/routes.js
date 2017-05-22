@@ -10,6 +10,8 @@ import Productos from './views/Productos/'
 import Category from './views/Category/'
 import Family from './views/Family/'
 import Gender from './views/Gender/'
+import Banner from './views/Banners/'
+import Publicidad from './views/Publicidad/'
 import ProductosNew from './views/ProductosNew/'
 import FichaProducto from './views/Ficha/'
 import Gallery from './views/Galeria/'
@@ -21,6 +23,8 @@ export default (
       <Route path="dashboard" name="Dashboard" component={Dashboard}/>
       <Route path="productos" name="Productos" component={Productos}/>
       <Route path="categorias" name="Categorias" component={Category}/>
+      <Route path="banners" name="Banners" component={Banner}/>
+      <Route path="publicidad" name="Banners publicitarios" component={Publicidad}/>
       <Route path="familias" name="Familias" component={Family}/>
       <Route path="generos" name="Generos" component={Gender}/>
       <Route path="productos/new" name="Nuevo producto" component={ProductosNew}/>
