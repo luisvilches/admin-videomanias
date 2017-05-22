@@ -1,0 +1,6 @@
+{
+  "name": "Gender",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Gender.js"
+}
