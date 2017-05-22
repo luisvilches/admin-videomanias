@@ -33,7 +33,7 @@ class Categoria extends Component {
     var r = confirm("¿Deseas eliminar esta categoria?");
     if (r == true) {
       
-      fetch(`${this.state.api}/category/${itemId}`,{
+      fetch(`${this.state.api}/banner/${itemId}`,{
         method: 'delete'
       })
       .then(res => res.json())
@@ -60,27 +60,38 @@ class Categoria extends Component {
   }
 
   addCat(){
-    var formData = new FormData();
-    formData.append('name', this.refs.name.value)
-    formData.append('description', this.refs.description.value)
-
-    fetch(`${this.state.api}/category`, {
-      method:'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(response => {
-      this.componentWillMount();
-      alert(response.message)
-      this.newToggle();
-    })
+    if(!this.refs.image.files[0]){
+      alert('fail')
+    } else {
+      var formData = new FormData();
+      formData.append('category', this.props.params.category)
+      formData.append('img', this.refs.image.files[0])
+      fetch(`${this.state.api}/banner`, {
+        method:'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(response => {
+        this.componentWillMount();
+        alert(response.message)
+        this.newToggle();
+      })
+    }
     
   }
 
   render() {
     return (
       <div className="animated fadeIn">
-        <h3>Administrador de Banners</h3>
+        <h3>Administrador Banners de la categoria: {this.props.params.category}</h3>
+        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nuevo banner </Button>
+        <br/>
+        <Form inline>
+          <input ref="image" type="file" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Nombre categoria"/>
+          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Agregar banner </Button>
+        </Form>
+        <br/>
+        <br/>
         <br/>
         <br/> 
         <Table>
@@ -99,7 +110,7 @@ class Categoria extends Component {
                     <td><img src={item.img} className="img-responsive ban" alt=""/></td>
                     <td>
                       <ButtonGroup>
-                        <Link to={`product/gallery/${item.nameUrl}`} className="btn btn-info" title="Galeria"><i className="fa fa-picture-o" aria-hidden="true"></i></Link>
+                        <Button color="danger" onClick={this.delete.bind(this,item._id)} title="Eliminar"><i className="fa fa-trash-o" aria-hidden="true"></i></Button>
                       </ButtonGroup>
                     </td>
                   </tr>

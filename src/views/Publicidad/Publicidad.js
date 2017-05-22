@@ -19,20 +19,21 @@ class Categoria extends Component {
   }
 
   componentWillMount(){
-    fetch(`${this.state.api}/category`)
+    fetch(`${this.state.api}/bannersPublicidad`)
     .then(res => res.json())
     .then(response => {
       this.setState({
         category: response.data
       })
+      console.log(response.data)
     })
   }
 
   delete(itemId){
-    var r = confirm("¿Deseas eliminar esta categoria?");
+    var r = confirm("¿Deseas eliminar este banner?");
     if (r == true) {
       
-      fetch(`${this.state.api}/category/${itemId}`,{
+      fetch(`${this.state.api}/bannersPublicidad/${itemId}`,{
         method: 'delete'
       })
       .then(res => res.json())
@@ -59,33 +60,36 @@ class Categoria extends Component {
   }
 
   addCat(){
-    var formData = new FormData();
-    formData.append('name', this.refs.name.value)
-    formData.append('description', this.refs.description.value)
+    if(!this.refs.image.file[0]){
+      alert('inserte un banner')
+    }else{
+      var formData = new FormData();
+      formData.append('img', this.refs.image.files[0])
+      //formData.append('description', this.refs.description.value)
 
-    fetch(`${this.state.api}/category`, {
-      method:'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(response => {
-      this.componentWillMount();
-      alert(response.message)
-      this.newToggle();
-    })
+      fetch(`${this.state.api}/bannersPublicidad`, {
+        method:'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(response => {
+        this.componentWillMount();
+        alert(response.message)
+        this.newToggle();
+      })
+    }
     
   }
 
   render() {
     return (
       <div className="animated fadeIn">
-        <h3>Administrador de categorias</h3>
-        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nueva categoria </Button>
+        <h3>Administrador de banners publicitarios</h3>
+        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nuevo Banner </Button>
         <br/>
         <Form inline>
-          <input ref="name" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Nombre categoria"/>
-          <input ref="description" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Descripción categoria"/>
-          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Crear categoria </Button>
+          <input ref="image" type="file" className={this.state.newCat ? 'block form-control' : 'none'} />
+          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Agregar nuevo banner </Button>
         </Form>
         <br/>
         <br/>
@@ -94,8 +98,7 @@ class Categoria extends Component {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Imagen</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -104,8 +107,7 @@ class Categoria extends Component {
                 return(
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{item.name}</td>
-                    <td>{item.description}</td>
+                    <td><img src={item.img} className="img-responsive ban" alt=""/></td>
                     <td>
                       <ButtonGroup>
                         <Button color="danger" onClick={this.delete.bind(this,item._id)} title="Eliminar"><i className="fa fa-trash-o" aria-hidden="true"></i></Button>
