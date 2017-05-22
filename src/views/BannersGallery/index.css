@@ -1,0 +1,12 @@
+.none {
+    display: none;
+}
+
+.block{
+    display: block;
+}
+
+.ban{
+    max-width: 100%;
+    min-width: 100%;
+}

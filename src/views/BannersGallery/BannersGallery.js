@@ -19,12 +19,13 @@ class Categoria extends Component {
   }
 
   componentWillMount(){
-    fetch(`${this.state.api}/category`)
+    fetch(`${this.state.api}/banner/category/${this.props.params.category}`)
     .then(res => res.json())
     .then(response => {
       this.setState({
         category: response.data
       })
+      console.log(response.data)
     })
   }
 
@@ -95,10 +96,10 @@ class Categoria extends Component {
                 return(
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{item.name}</td>
+                    <td><img src={item.img} className="img-responsive ban" alt=""/></td>
                     <td>
                       <ButtonGroup>
-                        <Link to={`banners/gallery/${item.name}`} className="btn btn-info" title="Galeria"><i className="fa fa-picture-o" aria-hidden="true"></i></Link>
+                        <Link to={`product/gallery/${item.nameUrl}`} className="btn btn-info" title="Galeria"><i className="fa fa-picture-o" aria-hidden="true"></i></Link>
                       </ButtonGroup>
                     </td>
                   </tr>
