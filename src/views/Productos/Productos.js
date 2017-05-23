@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ButtonGroup, Table,Button} from 'reactstrap';
+import {ButtonGroup, Table,Button, Form} from 'reactstrap';
 import {Link} from 'react-router'
 
 var dev = 'http://localhost:4000'
@@ -116,6 +116,23 @@ class Productos extends Component {
     console.log(data)
   }
 
+  search(name){
+    if(this.refs.search.value === ''){
+      this.setState({
+        products: this.state.allproducts
+      })
+    }else{
+      
+      var dd = this.state.products;
+      console.log(dd)
+      var data = dd.filter(item => {return item.name.toString().toLowerCase().includes(this.refs.search.value)}) 
+      this.setState({
+        products: data
+      })
+
+    }
+  }
+
   render() {
     return (
       <div className="animated fadeIn">
@@ -124,7 +141,10 @@ class Productos extends Component {
           <Link to="/productos/new" className="pull-right btn btn-danger">Agregar nuevo producto</Link>
           <br/>
           <br/>
-          <input type="text" onChange={(item) => {this.setState({textSearch: item.target.value})}}/>
+          <Form inline>
+          <input type="text" ref="search" onChange={this.search.bind(this)}/>
+          <Button color="primary" onClick={this.search.bind(this)}>Buscar</Button>
+          </Form>
           <br/> 
         </div>
         <div className="col-md-12">

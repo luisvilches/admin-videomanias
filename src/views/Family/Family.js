@@ -28,7 +28,7 @@ class Familia extends Component {
   }
 
   delete(itemId){
-    var r = confirm("¿Deseas eliminar esta categoria?");
+    var r = confirm("¿Deseas eliminar esta familia?");
     if (r == true) {
       
       fetch(`${this.state.api}/category/${itemId}`,{

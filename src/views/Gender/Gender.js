@@ -28,7 +28,7 @@ class Gender extends Component {
   }
 
   delete(itemId){
-    var r = confirm("¿Deseas eliminar esta categoria?");
+    var r = confirm("¿Deseas eliminar esta genero?");
     if (r == true) {
       
       fetch(`${this.state.api}/category/${itemId}`,{
@@ -78,12 +78,12 @@ class Gender extends Component {
     return (
       <div className="animated fadeIn">
         <h3>Administrador de Generos</h3>
-        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nueva categoria </Button>
+        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nuevo genero </Button>
         <br/>
         <Form inline>
           <input ref="name" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Nombre categoria"/>
           <input ref="description" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Descripción categoria"/>
-          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Crear categoria </Button>
+          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Crear genero </Button>
         </Form>
         <br/>
         <br/>

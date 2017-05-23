@@ -25,7 +25,6 @@ class Categoria extends Component {
       this.setState({
         category: response.data
       })
-      console.log(response.data)
     })
   }
 
@@ -60,12 +59,12 @@ class Categoria extends Component {
   }
 
   addCat(){
-    if(!this.refs.image.file[0]){
-      alert('inserte un banner')
+    if(!this.refs.image.files[0]){
+      alert('inserte una imagen')
     }else{
       var formData = new FormData();
       formData.append('img', this.refs.image.files[0])
-      //formData.append('description', this.refs.description.value)
+      formData.append('category', 'bannersPublicitarios')
 
       fetch(`${this.state.api}/bannersPublicidad`, {
         method:'POST',

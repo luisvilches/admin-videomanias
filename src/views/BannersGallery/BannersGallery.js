@@ -30,7 +30,7 @@ class Categoria extends Component {
   }
 
   delete(itemId){
-    var r = confirm("¿Deseas eliminar esta categoria?");
+    var r = confirm("¿Deseas eliminar esta banner?");
     if (r == true) {
       
       fetch(`${this.state.api}/banner/${itemId}`,{
@@ -61,7 +61,7 @@ class Categoria extends Component {
 
   addCat(){
     if(!this.refs.image.files[0]){
-      alert('fail')
+      alert('inserte una imagen')
     } else {
       var formData = new FormData();
       formData.append('category', this.props.params.category)
