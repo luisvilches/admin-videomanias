@@ -16,6 +16,9 @@ import Publicidad from './views/Publicidad/'
 import ProductosNew from './views/ProductosNew/'
 import FichaProducto from './views/Ficha/'
 import Gallery from './views/Galeria/'
+import Users from './views/Users/'
+import Transactions from './views/Transactions/'
+import Clients from './views/Clients/'
 
 export default (
   <Router history={hashHistory}>
@@ -32,6 +35,9 @@ export default (
       <Route path="productos/new" name="Nuevo producto" component={ProductosNew}/>
       <Route path="product/:product" name="Ficha producto" component={FichaProducto}/>
       <Route path="product/gallery/:product" name="Galeria de producto" component={Gallery}/>
+      <Route path="clients" name="Clientes" component={Clients}/>
+      <Route path="transactions" name="Transacciones" component={Transactions}/>
+      <Route path="users" name="Administracion de usuarios" component={Users}/>
     </Route>
   </Router>
 );

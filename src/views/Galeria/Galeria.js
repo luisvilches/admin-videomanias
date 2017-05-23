@@ -33,10 +33,7 @@ class Ficha extends Component {
     }else {
     
 
-      fetch(`${this.state.api}/admin/product/gallery/${this.state.product._id}`,{
-            headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
+      fetch(`${this.state.api}/product/gallery/${this.state.product._id}`,{
             method: 'POST',
             body: formData
           })
@@ -56,10 +53,7 @@ class Ficha extends Component {
     var r = confirm("¿Desea eliminar esta imagen?");
     if (r == true) {
       
-      fetch(`${this.state.api}/admin/product/gallery/one/${itemId}`,{
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          },
+      fetch(`${this.state.api}/product/gallery/one/${itemId}`,{
         method: 'delete'
       })
       .then(res => res.json())
@@ -132,6 +126,7 @@ class Ficha extends Component {
                 <img src={this.state.product.image} className="img-responsive imgMax" alt=""/>
               </div>
             </Col>
+            <Link to="/productos" className="pull-right btn btn-primary">Volver</Link>
           </Row>
            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
               <ModalHeader toggle={this.toggle}>Agregar nueva imagen</ModalHeader>

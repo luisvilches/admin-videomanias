@@ -1,38 +1,38 @@
 import React, { Component } from 'react';
-import {ButtonGroup, Table,Button,Form  } from 'reactstrap';
-import {Link} from 'react-router'
+import {ButtonGroup, Table,Button,Form } from 'reactstrap';
+import {Link} from 'react-router';
+import './index.css';
 
 var dev = 'http://localhost:4000'
 
-class Gender extends Component {
+class Categoria extends Component {
 
   constructor(props){
     super(props);
 
     this.state = {
       api: dev,
-      modal:false,
-      newCat: false,
-      category: []
+      category: [],
+      allcategory:[]
     }
   }
 
   componentWillMount(){
-    fetch(`${this.state.api}/gender`)
+    fetch(`${this.state.api}/users`)
     .then(res => res.json())
     .then(response => {
       this.setState({
-        category: response.data,
-        allcategory: response.data
+        category: response,
+        allcategory: response
       })
     })
   }
 
   delete(itemId){
-    var r = confirm("¿Deseas eliminar esta genero?");
+    var r = confirm("¿Deseas eliminar este banner?");
     if (r == true) {
       
-      fetch(`${this.state.api}/category/${itemId}`,{
+      fetch(`${this.state.api}/users/${itemId}`,{
         method: 'delete'
       })
       .then(res => res.json())
@@ -44,35 +44,6 @@ class Gender extends Component {
     } else {
      
     }    
-  }
-
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-  newToggle(){
-    this.setState({
-      newCat: !this.state.newCat
-    });
-  }
-
-  addCat(){
-    var formData = new FormData();
-    formData.append('name', this.refs.name.value)
-    formData.append('description', this.refs.description.value)
-
-    fetch(`${this.state.api}/gender`, {
-      method:'POST',
-      body: formData
-    })
-    .then(res => res.json())
-    .then(response => {
-      this.componentWillMount();
-      alert(response.message)
-      this.newToggle();
-    })
-    
   }
 
   search(name){
@@ -92,30 +63,30 @@ class Gender extends Component {
     }
   }
 
+  
 
   render() {
     return (
       <div className="animated fadeIn">
-        <h3>Administrador de Generos</h3>
-        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nuevo genero </Button>
-        <br/>
-        <Form inline>
-          <input ref="name" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Nombre categoria"/>
-          <input ref="description" type="text" className={this.state.newCat ? 'block form-control' : 'none'} placeholder="Descripción categoria"/>
-          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Crear genero </Button>
-        </Form>
+        <h3>Clientes</h3>
         <br/>
         <br/>
         <Form inline>
             <input className="input-responsive" placeholder="Buscar..." type="text" ref="search" onChange={this.search.bind(this)}/>
         </Form>
+        <br/>
         <br/> 
         <Table>
             <thead>
               <tr>
                 <th>#</th>
+                <th>Rut</th>
                 <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Username</th>
+                <th>password</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -124,8 +95,13 @@ class Gender extends Component {
                 return(
                   <tr key={index}>
                     <th scope="row">{index + 1}</th>
+                    <td>{item.rut}</td>
                     <td>{item.name}</td>
-                    <td>{item.description}</td>
+                    <td>{item.apellido}</td>
+                    <td>{item.mail}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.username}</td>
+                    <td>{item.password}</td>
                     <td>
                       <ButtonGroup>
                         <Button color="danger" onClick={this.delete.bind(this,item._id)} title="Eliminar"><i className="fa fa-trash-o" aria-hidden="true"></i></Button>
@@ -141,4 +117,4 @@ class Gender extends Component {
   }
 }
 
-export default Gender;
+export default Categoria;

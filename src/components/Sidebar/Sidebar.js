@@ -30,6 +30,9 @@ class Sidebar extends Component {
               <Link to={'/generos'} className="nav-link"><i className="fa fa-genderless"></i> Generos </Link>
               <Link to={'/banners'} className="nav-link"><i className="fa fa fa-flag-o"></i> Banners </Link>
               <Link to={'/publicidad'} className="nav-link"><i className="fa fa-info-circle"></i> Publicidad </Link>
+              <Link to={'/clients'} className="nav-link"><i className="fa fa-user" aria-hidden="true"></i> Clientes </Link>
+              <Link to={'/transactions'} className="nav-link"><i className="fa fa-credit-card-alt" aria-hidden="true"></i> Transacciones </Link>
+              <Link to={'/users'} className="nav-link"><i className="fa fa-users" aria-hidden="true"></i> Usuarios </Link>
             </li>
           </ul>
         </nav>

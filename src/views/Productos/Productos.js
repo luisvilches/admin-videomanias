@@ -100,21 +100,6 @@ class Productos extends Component {
     }    
   }
 
-  buscar(busqueda){
-    if(busqueda === null || busqueda === '' || busqueda === 'undefined'){
-      this.setState({
-        products: this.state.allproducts
-      })
-    }else{
-      var data = this.state.products.filter(item => {return item.name == busqueda}) 
-      this.setState({
-        products: data
-      })
-    }
-    
-
-    console.log(data)
-  }
 
   search(name){
     if(this.refs.search.value === ''){
@@ -141,9 +126,9 @@ class Productos extends Component {
           <Link to="/productos/new" className="pull-right btn btn-danger">Agregar nuevo producto</Link>
           <br/>
           <br/>
+          <br/>
           <Form inline>
-          <input type="text" ref="search" onChange={this.search.bind(this)}/>
-          <Button color="primary" onClick={this.search.bind(this)}>Buscar</Button>
+            <input className="input-responsive" placeholder="Buscar..." type="text" ref="search" onChange={this.search.bind(this)}/>
           </Form>
           <br/> 
         </div>

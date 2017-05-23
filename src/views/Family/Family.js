@@ -22,7 +22,8 @@ class Familia extends Component {
     .then(res => res.json())
     .then(response => {
       this.setState({
-        category: response.data
+        category: response.data,
+        allcategory: response.data
       })
     })
   }
@@ -74,6 +75,24 @@ class Familia extends Component {
     
   }
 
+  search(name){
+    if(this.refs.search.value === ''){
+      this.setState({
+        category: this.state.allcategory
+      })
+    }else{
+      
+      var dd = this.state.category;
+      console.log(dd)
+      var data = dd.filter(item => {return item.name.toString().toLowerCase().includes(this.refs.search.value)}) 
+      this.setState({
+        category: data
+      })
+
+    }
+  }
+
+
   render() {
     return (
       <div className="animated fadeIn">
@@ -87,6 +106,9 @@ class Familia extends Component {
         </Form>
         <br/>
         <br/>
+        <Form inline>
+            <input className="input-responsive" placeholder="Buscar..." type="text" ref="search" onChange={this.search.bind(this)}/>
+          </Form>
         <br/> 
         <Table>
             <thead>
