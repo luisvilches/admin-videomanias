@@ -22,7 +22,7 @@ class InitSession extends Component {
         let pass = this.refs.pass.value;
 
         const formData = new FormData()
-        formData.append('name',user)
+        formData.append('mail',user)
         formData.append('password',pass)
 
         fetch(API + '/login', {
