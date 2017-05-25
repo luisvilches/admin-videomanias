@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Table,Container, Row, Col,Button} from 'reactstrap';
 import TinyMCE from 'react-tinymce';
-import Switch from 'rc-switch'
+import Switch2 from 'rc-switch'
 import {Link} from 'react-router'
 
 var edit;
@@ -197,7 +197,7 @@ class Ficha extends Component {
                   <label>
                       ¿Producto en Oferta?: 
                     </label>
-                  <Switch
+                  <Switch2
                       onChange={this.toggle.bind(this)}
                       checked={this.state.product.offer}
                       checkedChildren={'Si'}
@@ -208,7 +208,7 @@ class Ficha extends Component {
                     <label>
                       ¿Producto en Estreno?: 
                     </label>
-                    <Switch
+                    <Switch2
                       onChange={this.togglePremiere.bind(this)}
                        checked={this.state.product.premiere}
                       checkedChildren={'Si'}

@@ -123,7 +123,7 @@ class ProductosNew extends Component {
       img:this.refs.img.files[0]
     }
 
-  fetch(`${this.state.api}/app/product`,{
+  fetch(`${this.state.api}/product`,{
         headers: {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         },

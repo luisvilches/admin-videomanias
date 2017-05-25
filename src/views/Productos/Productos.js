@@ -83,7 +83,7 @@ class Productos extends Component {
     var r = confirm("Press a button!");
     if (r == true) {
       
-      fetch(`${this.state.api}/admin/product/${itemId}`,{
+      fetch(`${this.state.api}/product/${itemId}`,{
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           },
