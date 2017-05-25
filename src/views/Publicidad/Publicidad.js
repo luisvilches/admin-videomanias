@@ -13,12 +13,23 @@ class Categoria extends Component {
     this.state = {
       api: dev,
       modal:false,
+      categoryName: [],
       category: [],
       newCat: false,
     }
   }
+  categories(){
+      fetch(`${this.state.api}/category`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({
+          categoryName: response.data
+        })
+      })
+    }
 
   componentWillMount(){
+    this.categories();
     fetch(`${this.state.api}/bannersPublicidad`)
     .then(res => res.json())
     .then(response => {
@@ -64,7 +75,7 @@ class Categoria extends Component {
     }else{
       var formData = new FormData();
       formData.append('img', this.refs.image.files[0])
-      formData.append('category', 'bannersPublicitarios')
+      formData.append('name', this.refs.categoria.state.value)
 
       fetch(`${this.state.api}/bannersPublicidad`, {
         method:'POST',
@@ -84,11 +95,11 @@ class Categoria extends Component {
     return (
       <div className="animated fadeIn">
         <h3>Administrador de banners publicitarios</h3>
-        <Button color="info" onClick={this.newToggle.bind(this)} className={this.state.newCat ? 'none' : 'block pull-right'}> Nuevo Banner </Button>
         <br/>
         <Form inline>
-          <input ref="image" type="file" className={this.state.newCat ? 'block form-control' : 'none'} />
-          <Button color="success" onClick={this.addCat.bind(this)} className={this.state.newCat ? 'block pull-right' : 'none'}> Agregar nuevo banner </Button>
+          <input ref="image" type="file" />
+          <SelectList ref="categoria" textOption="--seleccionar categoria" options={this.state.categoryName}/>
+          <Button color="success" onClick={this.addCat.bind(this)}> Agregar nuevo banner </Button>
         </Form>
         <br/>
         <br/>
@@ -121,5 +132,29 @@ class Categoria extends Component {
     )
   }
 }
+
+class SelectList extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      value: ''
+    }
+  }
+
+  render(){
+    return(
+      <select name="selectList" onChange={item => {this.setState({value: item.target.value})}} className="form-control">
+        <option value={this.props.textOption}>{this.props.textOption}</option> 
+        {this.props.options.map((item,index)=>{
+          return(
+            <option key={index} value={item.name} onChange={(name) => {this.setState({value:item.name})}}>{item.name}</option>
+          )
+        })}
+      </select>
+    )
+  }
+}
+
 
 export default Categoria;

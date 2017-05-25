@@ -5,3 +5,14 @@
 .block{
     display: block;
 }
+
+.top{
+    margin-top: 200px;
+}
+
+.lgo{
+    max-width: 150px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 20px;
+}

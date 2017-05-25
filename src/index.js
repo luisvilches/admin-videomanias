@@ -54,14 +54,19 @@ class InitSession extends Component {
 
     render(){
       return(
-        <div> 
-          <h2>inicio de sesion</h2>
-            <br/>
-            <input ref="user" type="text" placeholder="Nombre de usuario" className="form-control"/>
-            <br/>
-            <input ref="pass" type="password" placeholder="Contraseña" className="form-control"/>
-            <br/>
-            <input type="button" onClick={this.login.bind(this)} value="Iniciar session" className="form-control btn-danger"/>
+        <div className="container">
+          <div className="row justify-content-start">
+            <div className="col-md-4 push-md-4 top"> 
+              <img src="img/logo.png" alt="" className="img-responsive lgo"/>
+              <h2 className="text-center">Inicio de sesion</h2>
+                <br/>
+                <input ref="user" type="text" placeholder="Nombre de usuario" className="form-control"/>
+                <br/>
+                <input ref="pass" type="password" placeholder="Contraseña" className="form-control"/>
+                <br/>
+                <input type="button" onClick={this.login.bind(this)} value="Iniciar session" className="form-control btn-primary"/>
+            </div>
+          </div>
         </div>
       )
     }
