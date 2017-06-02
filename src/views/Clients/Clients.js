@@ -3,7 +3,8 @@ import {ButtonGroup, Table,Button,Form } from 'reactstrap';
 import {Link} from 'react-router';
 import './index.css';
 
-var dev = 'http://localhost:4000'
+var dev = 'http://localhost:4000';
+let prod = 'https://dowhile-videomania.herokuapp.com';
 
 class Categoria extends Component {
 
@@ -11,7 +12,7 @@ class Categoria extends Component {
     super(props);
 
     this.state = {
-      api: dev,
+      api: prod,
       category: [],
       allcategory:[]
     }

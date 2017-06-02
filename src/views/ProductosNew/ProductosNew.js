@@ -5,7 +5,8 @@ import TinyMCE from 'react-tinymce';
 import Switch from 'rc-switch'
 import './index.css'
 
-var dev = 'http://localhost:4000'
+var dev = 'http://localhost:4000';
+let prod = 'https://dowhile-videomania.herokuapp.com';
 
 class ProductosNew extends Component {
 
@@ -13,7 +14,7 @@ class ProductosNew extends Component {
     super(props);
 
     this.state = {
-      api: dev,
+      api: prod,
       products: [],
       category:[],
       family:[],

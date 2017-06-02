@@ -4,9 +4,9 @@ import { Router, hashHistory } from 'react-router';
 import routes from './routes';
 
 var dev = 'http://localhost:4000';
-var prod = '';
+let prod = 'https://dowhile-videomania.herokuapp.com';
 
-var API =  dev;
+var API =  prod;
 
 class InitSession extends Component {
 

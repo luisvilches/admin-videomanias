@@ -6,7 +6,8 @@ import {Link} from 'react-router'
 
 var edit;
 
-var dev = 'http://localhost:4000'
+var dev = 'http://localhost:4000';
+let prod = 'https://dowhile-videomania.herokuapp.com';
 
 class Ficha extends Component {
 
@@ -14,7 +15,7 @@ class Ficha extends Component {
     super(props);
 
     this.state = {
-      api: dev,
+      api: prod,
       product:[],
       text: ``,
       category: [],

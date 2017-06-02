@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {ButtonGroup, Table,Button, Form} from 'reactstrap';
 import {Link} from 'react-router'
 
-var dev = 'http://localhost:4000'
+var dev = 'http://localhost:4000';
+let prod = 'https://dowhile-videomania.herokuapp.com';
 
 class Productos extends Component {
 
@@ -10,7 +11,7 @@ class Productos extends Component {
     super(props);
 
     this.state = {
-      api: dev,
+      api: prod,
       products: [],
       allproducts:[],
       category:[],
