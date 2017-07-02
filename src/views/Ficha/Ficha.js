@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {Table,Container, Row, Col,Button} from 'reactstrap';
 import TinyMCE from 'react-tinymce';
-import Switch2 from 'rc-switch'
-import {Link} from 'react-router'
+//import Switch from 'rc-switch';
+import Switch2 from 'rc-switch';
+import {Link} from 'react-router';
+import Toggle from '../Toggle/index';
+import Switch from 'react-toggle-switch'
 
 var edit;
 
@@ -17,12 +20,12 @@ class Ficha extends Component {
     this.state = {
       api: prod,
       product:[],
-      text: ``,
+      text: '',
       category: [],
       family: [],
       gender: [],   
-      offer: false,
-      premiere: false,
+      offer: '',
+      premiere: '',
       modal: false,
       name: '',
       price:'',
@@ -30,16 +33,21 @@ class Ficha extends Component {
       pie: '',
       media:''
     }
+
+    this.toggle = this.toggle.bind(this);
+    this.togglePremiere = this.togglePremiere.bind(this);
   }
 
-  toggle(value){
+  toggle(event){
+    event.preventDefault();
     this.setState({
       offer: !this.state.offer,
     });
-    console.log('offer: '+this.state.premiere)
+    console.log('offer: '+this.state.offer)
   }
 
-  togglePremiere(value){
+  togglePremiere(event){
+    event.preventDefault();
     this.setState({
       premiere: !this.state.premiere,
     });
@@ -47,7 +55,7 @@ class Ficha extends Component {
   }
 
   categories(){
-      fetch(`${this.state.api}/category`)
+    fetch(`${this.state.api}/category`)
       .then(res => res.json())
       .then(response => {
         this.setState({
@@ -56,29 +64,37 @@ class Ficha extends Component {
       })
     }
 
-    family(){
-      fetch(`${this.state.api}/family`)
-      .then(res => res.json())
-      .then(response => {
-        this.setState({
-          family: response.data
-        })
+  family(){
+    fetch(`${this.state.api}/family`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({
+        family: response.data
       })
-    }
+    })
+  }
 
-    gender(){
-      fetch(`${this.state.api}/gender`)
-      .then(res => res.json())
-      .then(response => {
-        this.setState({
-          gender: response.data
-        })
+  gender(){
+    fetch(`${this.state.api}/gender`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({
+        gender: response.data
       })
-    }
+    })
+  }
 
   componentWillMount(){
-
-    
+    fetch(`${this.state.api}/product/${this.props.params.product}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({
+        offer: response.data.offer,
+        premiere: response.data.premiere
+      })
+      //console.log('Woffer: '+this.state.offer)
+      //console.log('Wpremiere: '+this.state.premiere)
+    })
     this.categories();
     this.family();
     this.gender();   
@@ -88,8 +104,9 @@ class Ficha extends Component {
     fetch(`${this.state.api}/product/${this.props.params.product}`)
     .then(res => res.json())
     .then(response => {
-     
       this.setState({
+        offer: response.data.offer,
+        premiere: response.data.premiere,
         product: response.data,
         text: response.data.description,
         name: response.data.name,
@@ -98,9 +115,9 @@ class Ficha extends Component {
         pie: response.data.pie,
         media:response.data.media,
       })
-      
     })
-    console.log(this.props.params.product)
+    //console.log('offer: '+this.state.offer)
+    //console.log('premiere: '+this.state.premiere)
   }
 
   editarSave(){
@@ -130,6 +147,7 @@ class Ficha extends Component {
           console.log(response)
           console.log(this.state.product._id)
           this.componentWillMount()
+          alert(response.message)
         })
 
     }else{
@@ -149,6 +167,7 @@ class Ficha extends Component {
             console.log(response)
             console.log(this.state.product._id)
             this.componentWillMount()
+            alert(response.message)
           })
 
           console.log('imagen cargadada')
@@ -195,25 +214,27 @@ class Ficha extends Component {
                 <br/>
                 <Row>
                   <Col xs="12" md="6">
-                  <label>
+                    <label>
                       ¿Producto en Oferta?: 
                     </label>
-                  <Switch2
-                      onChange={this.toggle.bind(this)}
-                      checked={this.state.product.offer}
-                      checkedChildren={'Si'}
-                      unCheckedChildren={'No'}
+                    <Toggle 
+                      value={!this.state.offer} 
+                      change={this.toggle} 
+                      index="1"
+                      on="APROBADO" 
+                      off="DESAPROBADO" 
                     />
                     <br/>
                     <br/>
                     <label>
                       ¿Producto en Estreno?: 
                     </label>
-                    <Switch2
-                      onChange={this.togglePremiere.bind(this)}
-                       checked={this.state.product.premiere}
-                      checkedChildren={'Si'}
-                      unCheckedChildren={'No'}
+                    <Toggle 
+                      value={!this.state.premiere} 
+                      change={this.togglePremiere} 
+                      index="2" 
+                      on="APROBADO" 
+                      off="DESAPROBADO" 
                     />
                     <br/>
                     <br/>

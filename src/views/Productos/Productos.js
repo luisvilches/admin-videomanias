@@ -70,7 +70,7 @@ class Productos extends Component {
 
   }
   componentWillReceiveProps(){
-    this.buscar(this.state.textSearch)
+    this.search(this.state.textSearch)
   }
 
   toggle() {

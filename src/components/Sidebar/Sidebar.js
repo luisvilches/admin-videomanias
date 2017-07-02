@@ -15,6 +15,10 @@ class Sidebar extends Component {
   // secondLevelActive(routeName) {
   //   return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
   // }
+  closeSession(){
+    localStorage.clear();
+    window.location.reload();
+  }
 
   render() {
     return (
@@ -23,7 +27,6 @@ class Sidebar extends Component {
         <nav className="sidebar-nav">
           <ul className="nav">
             <li className="nav-item">
-              <Link to={'/dashboard'} className="nav-link"><i className="icon-speedometer"></i> Dashboard </Link>
               <Link to={'/productos'} className="nav-link"><i className="fa fa-puzzle-piece"></i> Productos </Link>
               <Link to={'/categorias'} className="nav-link"><i className="fa fa-calendar-o"></i> Categorias </Link>
               <Link to={'/familias'} className="nav-link"><i className="fa fa-star"></i> Familias </Link>
@@ -32,7 +35,7 @@ class Sidebar extends Component {
               <Link to={'/publicidad'} className="nav-link"><i className="fa fa-info-circle"></i> Publicidad </Link>
               <Link to={'/clients'} className="nav-link"><i className="fa fa-user" aria-hidden="true"></i> Clientes </Link>
               <Link to={'/transactions'} className="nav-link"><i className="fa fa-credit-card-alt" aria-hidden="true"></i> Transacciones </Link>
-              <Link to={'/users'} className="nav-link"><i className="fa fa-users" aria-hidden="true"></i> Usuarios </Link>
+              <Link className="nav-link" onClick={this.closeSession.bind(this)}><i className="fa fa-times-circle-o" aria-hidden="true"></i> Cerrar session </Link>
             </li>
           </ul>
         </nav>

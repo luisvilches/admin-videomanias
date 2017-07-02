@@ -22,9 +22,11 @@ class Categoria extends Component {
     fetch(`${this.state.api}/users`)
     .then(res => res.json())
     .then(response => {
+      var data = response.filter(item => {return item.admin === false}) 
+
       this.setState({
-        category: response,
-        allcategory: response
+        category: data,
+        allcategory: data
       })
     })
   }
@@ -80,7 +82,7 @@ class Categoria extends Component {
         <Table>
             <thead>
               <tr>
-                <th>#</th>
+                <th>Cod. Cliente</th>
                 <th>Rut</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
@@ -95,7 +97,7 @@ class Categoria extends Component {
               {this.state.category.map((item,index) => {
                 return(
                   <tr key={index}>
-                    <th scope="row">{index + 1}</th>
+                    <td>{item._id}</td>
                     <td>{item.rut}</td>
                     <td>{item.name}</td>
                     <td>{item.apellido}</td>

@@ -18,13 +18,13 @@ import FichaProducto from './views/Ficha/'
 import Gallery from './views/Galeria/'
 import Users from './views/Users/'
 import Transactions from './views/Transactions/'
+import TransactionsDetails from './views/TransactionsDetails/TransactionsDetails'
 import Clients from './views/Clients/'
 
 export default (
   <Router history={hashHistory}>
-    <Route path="/" name="Home" component={Full}>
-      <IndexRoute component={Dashboard}/>
-      <Route path="dashboard" name="Dashboard" component={Dashboard}/>
+    <Route path="/" name="Productos" component={Full}>
+      <IndexRoute component={Productos}/>
       <Route path="productos" name="Productos" component={Productos}/>
       <Route path="categorias" name="Categorias" component={Category}/>
       <Route path="banners" name="Banners" component={Banner}/>
@@ -37,6 +37,7 @@ export default (
       <Route path="product/gallery/:product" name="Galeria de producto" component={Gallery}/>
       <Route path="clients" name="Clientes" component={Clients}/>
       <Route path="transactions" name="Transacciones" component={Transactions}/>
+      <Route path="TransactionsDetails/:token" name="Transacciones" component={TransactionsDetails}/>
       <Route path="users" name="Administracion de usuarios" component={Users}/>
     </Route>
   </Router>

@@ -3,6 +3,7 @@ import { Table,Button, Container, Row, Col } from 'reactstrap';
 import {Link} from 'react-router'
 import TinyMCE from 'react-tinymce';
 import Switch from 'rc-switch'
+import Toogle from '../Toggle/index';
 import './index.css'
 
 var dev = 'http://localhost:4000';
@@ -215,18 +216,26 @@ class ProductosNew extends Component {
                 <label>
                   ¿Producto en Oferta?: 
                 </label>
-              <Switch
+              {/*<Switch
                   onChange={this.toggle.bind(this)}
                   checkedChildren={'Si'}
                   unCheckedChildren={'No'}
+                />*/}
+                <Toogle
+                  change={this.toggle.bind(this)}
+                  value={!false}
                 />
                 <label>
                   ¿Producto en Estreno?: 
                 </label>
-                <Switch
+                {/*<Switch
                   onChange={this.togglePremiere.bind(this)}
                   checkedChildren={'Si'}
                   unCheckedChildren={'No'}
+                />*/}
+                <Toogle
+                  change={this.togglePremiere.bind(this)}
+                  value={!false}
                 />
               </Col>
               <Col xs="12" md="4">
